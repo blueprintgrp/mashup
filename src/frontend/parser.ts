@@ -242,15 +242,15 @@ export default class Parser {
 
                 if (property.kind != 'Identifier') {
                     throw `Cannot use dot operator without right hand side being an identifier.`
-                } else {
-                    computed = true
-                    property = this.parseExpression()
-
-                    this.expect(TokenType.CloseBracket, 'Missing closing bracket in computed value.')
                 }
+            } else {
+                computed = true
+                property = this.parseExpression()
 
-                object = { kind: 'MemberExpression', object, property, computed } as MemberExpression
+                this.expect(TokenType.CloseBracket, 'Missing closing bracket in computed value.')
             }
+
+            object = { kind: 'MemberExpression', object, property, computed } as MemberExpression
         }
 
         return object

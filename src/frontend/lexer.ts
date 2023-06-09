@@ -83,7 +83,6 @@ export function tokenize (sourceCode: string): Token[] {
         } else if (source[0] == ',') {
             tokens.push(token(source.shift(), TokenType.Comma))
         } else if (source[0] == '.') {
-            console.log('dot found', token)
             tokens.push(token(source.shift(), TokenType.Dot))
         } else {
             // Handle multicharacter tokens
