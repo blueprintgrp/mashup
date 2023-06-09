@@ -60,7 +60,7 @@ export function tokenize (sourceCode: string): Token[] {
 
     // Build each token until end of file
     while (source.length > 0) {
-        if (source[0] == '(') {
+        if        (source[0] == '(') {
             tokens.push(token(source.shift(), TokenType.OpenParen))
         } else if (source[0] == ')') {
             tokens.push(token(source.shift(), TokenType.CloseParen))
@@ -83,6 +83,7 @@ export function tokenize (sourceCode: string): Token[] {
         } else if (source[0] == ',') {
             tokens.push(token(source.shift(), TokenType.Comma))
         } else if (source[0] == '.') {
+            console.log('dot found', token)
             tokens.push(token(source.shift(), TokenType.Dot))
         } else {
             // Handle multicharacter tokens
