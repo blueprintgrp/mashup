@@ -3,6 +3,7 @@ import * as fs from 'fs'
 export enum TokenType {
     // Literal Types
     Number,
+    String,
     Identifier,
 
     // Keywords
@@ -17,6 +18,7 @@ export enum TokenType {
     Dot, // .
     Colon, // :
     Semicolon, // ;
+    Quote,
     OpenParen, // (
     CloseParen, // )
     OpenBrace, // }
@@ -86,6 +88,16 @@ export function tokenize (sourceCode: string): Token[] {
             tokens.push(token(source.shift(), TokenType.Comma))
         } else if (source[0] == '.') {
             tokens.push(token(source.shift(), TokenType.Dot))
+        } else if (['"', '\''].includes(source[0])) {
+            source.shift() // remove quote
+            let string = ''
+
+            while (source.length > 1 && source[0] != '"') {
+                string += source.shift()
+            }
+
+            source.shift()
+            tokens.push(token(string, TokenType.String))
         } else {
             // Handle multicharacter tokens
 

@@ -12,6 +12,7 @@ import {
     Statement,
     VariableDeclaration, 
     FunctionDeclaration,
+    StringLiteral,
 } from "./ast"
 
 import { tokenize, Token, TokenType } from "./lexer"
@@ -303,6 +304,9 @@ export default class Parser {
 
             case TokenType.Number:
                 return { kind: 'NumericLiteral', value: parseFloat(this.eat().value) } as NumericLiteral
+            
+            case TokenType.String:
+                return { kind: 'StringLiteral', value: this.eat().value } as StringLiteral
 
             case TokenType.OpenParen: {
                 this.eat() // eat the opening paren

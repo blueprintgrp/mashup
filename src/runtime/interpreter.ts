@@ -1,5 +1,5 @@
-import { RuntimeValue, NumberValue } from './values'
-import { Program, Statement, BinaryExpression, NumericLiteral, Identifier, VariableDeclaration, AssignmentExpression, ObjectLiteral, CallExpression, FunctionDeclaration } from '../frontend/ast'
+import { RuntimeValue, NumberValue, StringValue } from './values'
+import { Program, Statement, BinaryExpression, NumericLiteral, Identifier, VariableDeclaration, AssignmentExpression, ObjectLiteral, CallExpression, FunctionDeclaration, StringLiteral } from '../frontend/ast'
 import Environment from './environment'
 import { evaluateIdentifier, evaluateBinaryExpression, evaluateAssignment, evaluateObjectExpression, evaluateCallExpression } from './evaluate/expression'
 import { evaluateFunctionDeclaration, evaluateProgram, evaluateVariableDeclaration } from './evaluate/statement'
@@ -11,6 +11,12 @@ export function evaluate (astNode: Statement, env: Environment): RuntimeValue {
                 value: ((astNode as NumericLiteral).value),
                 type: 'number' 
             } as NumberValue
+        
+        case 'StringLiteral':
+            return {
+                value: ((astNode as StringLiteral).value),
+                type: 'string'
+            } as StringValue
 
         case 'Identifier':
             return evaluateIdentifier(astNode as Identifier, env)

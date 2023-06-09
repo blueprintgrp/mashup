@@ -4,6 +4,7 @@ import Environment from "./environment"
 export type ValueType = 
     | 'null'
     | 'number'
+    | 'string'
     | 'boolean'
     | 'object'
     | 'stdfun'
@@ -26,6 +27,11 @@ export interface BooleanValue extends RuntimeValue {
 export interface NumberValue extends RuntimeValue {
     type: 'number'
     value: number
+}
+
+export interface StringValue extends RuntimeValue {
+    type: 'string'
+    value: string
 }
 
 export interface ObjectValue extends RuntimeValue {

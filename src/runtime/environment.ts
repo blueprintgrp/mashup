@@ -1,4 +1,4 @@
-import { BooleanValue, NativeFunValue, NullValue, RuntimeValue } from "./values"
+import { BooleanValue, NativeFunValue, NullValue, NumberValue, ObjectValue, RuntimeValue } from "./values"
 
 export function createGlobalEnvironment () {
     const env = new Environment()
@@ -9,17 +9,14 @@ export function createGlobalEnvironment () {
     env.declareVar('null', { value: 'null', type: 'null' } as NullValue, true)
 
     // Standard Functions
-    env.declareVar('println', { type: 'stdfun', call: (args: RuntimeValue[], scope) => {
-        let toLog: string
-
+    function println(args: RuntimeValue[], scope: Environment) {
         console.log(...args)
-        return { type: 'null', value: 'null' } as NullValue
-    } } as NativeFunValue, true)
 
-    env.declareVar('time', { type: 'stdfun', call: (args, scope) => {
-        return { type: 'number', value: Date.now() }
-    } } as NativeFunValue, true)
+        return { type: 'null', value: 'null' } as NullValue 
+    }
 
+    env.declareVar('println', { type: 'stdfun', call: println } as NativeFunValue, true)
+    
     return env
 }
 
