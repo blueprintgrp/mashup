@@ -11,14 +11,14 @@ import Environment, { createGlobalEnvironment } from './runtime/environment'
 const parser = new Parser()
 const env = createGlobalEnvironment()
 
-run()
+file()
 
-async function run() {
+async function file() {
     const source = fs.readFileSync('./examples/test.mp').toString()
     const program = parser.produceAST(source)
     const result = evaluate(program, env)
 
-    console.log(util.inspect(result, true, null, true))
+    // console.log(util.inspect(result, true, null, true))
     process.exit(1)
 }
 
@@ -39,6 +39,6 @@ async function repl () {
         const program = parser.produceAST(source)
         
         const result = evaluate(program, env)
-        console.log(result)
+        // console.log(result)
     }
 }

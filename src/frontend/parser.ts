@@ -11,6 +11,7 @@ import {
     Property, 
     Statement,
     VariableDeclaration, 
+    FunctionDeclaration,
 } from "./ast"
 
 import { tokenize, Token, TokenType } from "./lexer"
@@ -64,9 +65,46 @@ export default class Parser {
             case TokenType.Const:
                 return this.parseVariableDeclaration()
             
+            case TokenType.Fun:
+                return this.parseFunctionDeclaration()
+            
             default:
                 return this.parseExpression()
         }
+    }
+
+    private parseFunctionDeclaration(): Statement {
+        this.eat()
+        const name = this.expect(TokenType.Identifier, 'Expected function name following fun keyword.').value
+        const args = this.parseArgs()
+        const params: string[] = []
+
+        for (const arg of args) {
+            if (arg.kind !== 'Identifier') {
+                console.log(arg)
+                throw 'Expected parameters to be of type string inside function declaration.'
+            }
+
+            params.push((arg as Identifier).symbol)
+        }
+
+        this.expect(TokenType.OpenBrace, 'Expected function body following declaration')
+        const body: Statement[] = []
+
+        while (this.at().type !== TokenType.EOF && this.at().type !== TokenType.CloseBrace) {
+            body.push(this.parseStatement())
+        }
+
+        this.expect(TokenType.CloseBrace, 'Closing brace expected inside function declaration.')
+        
+        const fun = {
+            body,
+            name,
+            parameters: params,
+            kind: 'FunctionDeclaration'
+        } as FunctionDeclaration
+
+        return fun
     }
     
     private parseVariableDeclaration(): Statement {

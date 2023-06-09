@@ -1,7 +1,7 @@
-import { Program, VariableDeclaration } from "../../frontend/ast"
+import { FunctionDeclaration, Program, VariableDeclaration } from "../../frontend/ast"
 import Environment from "../environment"
 import { evaluate } from "../interpreter"
-import { RuntimeValue, NullValue } from "../values"
+import { RuntimeValue, NullValue, FunctionValue } from "../values"
 
 export function evaluateProgram(program: Program, env: Environment): RuntimeValue {
     let lastEvaluated: RuntimeValue = { type: 'null', value: 'null' } as NullValue
@@ -17,4 +17,16 @@ export function evaluateVariableDeclaration(declaration: VariableDeclaration, en
     const value = declaration.value ? evaluate(declaration.value, env) : { value: 'null', type: 'null' } as NullValue
 
     return env.declareVar(declaration.identifier, value, declaration.constant)
+}
+
+export function evaluateFunctionDeclaration(declaration: FunctionDeclaration, env: Environment): RuntimeValue {
+    const fun = {
+        type: 'function',
+        name: declaration.name,
+        parameters: declaration.parameters,
+        declarationEnv: env,
+        body: declaration.body
+    } as FunctionValue
+
+    return env.declareVar(declaration.name, fun, true)
 }

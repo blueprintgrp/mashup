@@ -1,7 +1,7 @@
-import { AssignmentExpression, BinaryExpression, Identifier, ObjectLiteral } from "../../frontend/ast"
+import { AssignmentExpression, BinaryExpression, CallExpression, Identifier, ObjectLiteral } from "../../frontend/ast"
 import Environment from "../environment"
 import { evaluate } from "../interpreter"
-import { NullValue, NumberValue, ObjectValue, RuntimeValue } from "../values"
+import { FunctionValue, NativeFunValue, NullValue, NumberValue, ObjectValue, RuntimeValue } from "../values"
 
 export function evaluateNumericBinaryExpression (leftHandSide: NumberValue, rightHandSide: NumberValue, operator: string): NumberValue {
     let result: number
@@ -51,4 +51,37 @@ export function evaluateObjectExpression(obj: ObjectLiteral, env: Environment): 
     }
 
     return object
+}
+
+export function evaluateCallExpression(expression: CallExpression, env: Environment): RuntimeValue {
+    const args = expression.args.map((arg) => evaluate(arg, env))
+    const fun = evaluate(expression.caller, env)
+
+    if (fun.type == 'stdfun') {
+        const result = (fun as NativeFunValue).call(args, env)
+        return result
+    }
+    
+    if (fun.type == 'function') {
+        const func = fun as FunctionValue
+        const scope = new Environment(func.declarationEnv)
+
+        for (let i = 0; i < func.parameters.length; i++) {
+            // TODO: Check the bounds here
+            // verify arity of function
+            const varname = func.parameters[i]
+
+            scope.declareVar(varname, args[i], false)
+        }
+
+        let result: RuntimeValue = { type: 'null', value: 'null' } as NullValue
+        // evaluate the function body line by line
+        for (const statement of func.body) {
+            result = evaluate(statement, scope)
+        }
+
+        return result
+    }
+
+    throw 'Cannot call value that is not a function: ' + JSON.stringify(fun)
 }

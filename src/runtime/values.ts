@@ -1,8 +1,13 @@
+import { Statement } from "../frontend/ast"
+import Environment from "./environment"
+
 export type ValueType = 
     | 'null'
     | 'number'
     | 'boolean'
     | 'object'
+    | 'stdfun'
+    | 'function'
 
 export interface RuntimeValue {
     type: ValueType
@@ -26,4 +31,19 @@ export interface NumberValue extends RuntimeValue {
 export interface ObjectValue extends RuntimeValue {
     type: 'object'
     properties: Map<string, RuntimeValue>
+}
+
+export type FunctionCall = (args: RuntimeValue[], env: Environment) => RuntimeValue
+
+export interface NativeFunValue extends RuntimeValue {
+    type: 'stdfun'
+    call: FunctionCall
+}
+
+export interface FunctionValue extends RuntimeValue {
+    type: 'function'
+    name: string
+    parameters: string[]
+    declarationEnv: Environment
+    body: Statement[]
 }

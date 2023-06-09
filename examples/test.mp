@@ -1,13 +1,11 @@
-let foo = 50 / 2
+fun makeAdder (offset) {
+    fun add (x, y) {
+        x + y + offset
+    }
 
-const object = {
-    x: 100,
-    y: 32,
-    foo: foo,
-    complex: {
-        bar: true
-    },
+    add
 }
 
-let f = object.complex.bar
-foo = object.foo() + 5
+const adder = makeAdder(1)
+
+println(adder(10, 5))

@@ -1,8 +1,8 @@
 import { RuntimeValue, NumberValue } from './values'
-import { Program, Statement, BinaryExpression, NumericLiteral, Identifier, VariableDeclaration, AssignmentExpression, ObjectLiteral } from '../frontend/ast'
+import { Program, Statement, BinaryExpression, NumericLiteral, Identifier, VariableDeclaration, AssignmentExpression, ObjectLiteral, CallExpression, FunctionDeclaration } from '../frontend/ast'
 import Environment from './environment'
-import { evaluateIdentifier, evaluateBinaryExpression, evaluateAssignment, evaluateObjectExpression } from './evaluate/expression'
-import { evaluateProgram, evaluateVariableDeclaration } from './evaluate/statement'
+import { evaluateIdentifier, evaluateBinaryExpression, evaluateAssignment, evaluateObjectExpression, evaluateCallExpression } from './evaluate/expression'
+import { evaluateFunctionDeclaration, evaluateProgram, evaluateVariableDeclaration } from './evaluate/statement'
 
 export function evaluate (astNode: Statement, env: Environment): RuntimeValue {
     switch (astNode.kind) {
@@ -17,6 +17,9 @@ export function evaluate (astNode: Statement, env: Environment): RuntimeValue {
 
         case 'ObjectLiteral':
             return evaluateObjectExpression(astNode as ObjectLiteral, env)
+        
+        case 'CallExpression':
+            return evaluateCallExpression(astNode as CallExpression, env)
 
         case 'AssignmentExpression':
             return evaluateAssignment(astNode as AssignmentExpression, env)
@@ -29,6 +32,9 @@ export function evaluate (astNode: Statement, env: Environment): RuntimeValue {
         
         case 'VariableDeclaration':
             return evaluateVariableDeclaration(astNode as VariableDeclaration, env)
+            
+        case 'FunctionDeclaration':
+            return evaluateFunctionDeclaration(astNode as FunctionDeclaration, env)
 
         default:
             console.error("This AST Node has not yet been setup for interpretation.", astNode)

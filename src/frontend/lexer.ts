@@ -8,6 +8,7 @@ export enum TokenType {
     // Keywords
     Let,
     Const,
+    Fun,
 
     // Grouping * Operators
     BinaryOperator, // +, -, *, /, %
@@ -27,7 +28,8 @@ export enum TokenType {
 
 const KEYWORDS: Record<string, TokenType> = {
     'let': TokenType.Let,
-    'const': TokenType.Const
+    'const': TokenType.Const,
+    'fun': TokenType.Fun,
 }
 
 export interface Token {
