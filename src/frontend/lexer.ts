@@ -14,11 +14,12 @@ export enum TokenType {
     // Grouping * Operators
     BinaryOperator, // +, -, *, /, %
     Equals, // =
+    DoubleEquals, // ==
     Comma, // ,
     Dot, // .
     Colon, // :
     Semicolon, // ;
-    Quote,
+    Quote, // "
     OpenParen, // (
     CloseParen, // )
     OpenBrace, // }
@@ -32,7 +33,7 @@ export enum TokenType {
 const KEYWORDS: Record<string, TokenType> = {
     'let': TokenType.Let,
     'const': TokenType.Const,
-    'fun': TokenType.Fun,
+    'fun': TokenType.Fun
 }
 
 export interface Token {
@@ -87,7 +88,13 @@ export function tokenize (sourceCode: string): Token[] {
         } else if (['+', '-', '*', '/', '%'].includes(source[0])) {
             tokens.push(token(source.shift(), TokenType.BinaryOperator))
         } else if (source[0] == '=') {
-            tokens.push(token(source.shift(), TokenType.Equals))
+            if (source[1] == '=') {
+                tokens.push(token('==', TokenType.DoubleEquals))
+                source.shift()
+                source.shift()
+            } else {
+                tokens.push(token(source.shift(), TokenType.Equals))
+            }
         } else if (source[0] == ';') {
             tokens.push(token(source.shift(), TokenType.Semicolon))
         } else if (source[0] == ':') {

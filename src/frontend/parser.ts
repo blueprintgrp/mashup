@@ -72,8 +72,8 @@ export default class Parser {
             default:
                 return this.parseExpression()
         }
-    }
-
+    }     
+    
     private parseFunctionDeclaration(): Statement {
         this.eat()
         const name = this.expect(TokenType.Identifier, 'Expected function name following fun keyword.').value
