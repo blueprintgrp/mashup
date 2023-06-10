@@ -14,7 +14,6 @@ export enum TokenType {
     // Grouping * Operators
     BinaryOperator, // +, -, *, /, %
     Equals, // =
-    DoubleEquals, // ==
     Comma, // ,
     Dot, // .
     Colon, // :
@@ -88,13 +87,7 @@ export function tokenize (sourceCode: string): Token[] {
         } else if (['+', '-', '*', '/', '%'].includes(source[0])) {
             tokens.push(token(source.shift(), TokenType.BinaryOperator))
         } else if (source[0] == '=') {
-            if (source[1] == '=') {
-                tokens.push(token('==', TokenType.DoubleEquals))
-                source.shift()
-                source.shift()
-            } else {
-                tokens.push(token(source.shift(), TokenType.Equals))
-            }
+            tokens.push(token(source.shift(), TokenType.Equals))
         } else if (source[0] == ';') {
             tokens.push(token(source.shift(), TokenType.Semicolon))
         } else if (source[0] == ':') {

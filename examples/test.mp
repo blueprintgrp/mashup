@@ -20,3 +20,4 @@ const logger = {
 }
 
 logger.error("Something wrong happend")
+println(15 == 17)
