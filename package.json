@@ -1,6 +1,6 @@
 {
   "name": "mashup",
-  "version": "0.3.1",
+  "version": "0.3.3",
   "description": "",
   "main": "src/index.ts",
   "scripts": {
