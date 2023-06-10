@@ -1,4 +1,7 @@
-import { BooleanValue, NativeFunValue, NullValue, NumberValue, ObjectValue, RuntimeValue } from "./values"
+import * as util from 'node:util'
+import * as read from 'node:readline'
+
+import { BooleanValue, NativeFunValue, NullValue, NumberValue, ObjectValue, RuntimeValue, StringValue } from "./values"
 
 export function createGlobalEnvironment () {
     const env = new Environment()
@@ -10,13 +13,34 @@ export function createGlobalEnvironment () {
 
     // Standard Functions
     function println(args: RuntimeValue[], scope: Environment) {
-        console.log(...args)
+        let log: any[] = []
+
+        for (const arg of args) {
+            switch (arg.type) {
+                case 'number':
+                    log.push(((arg as NumberValue).value))
+                    continue
+                case 'string':
+                    log.push((arg as StringValue).value)
+                    continue
+                case 'boolean':
+                    log.push(((arg as BooleanValue).value))
+                    continue
+                case 'null':
+                    log.push(((arg as NullValue).value))
+                    continue
+                default:
+                    log.push(arg)
+            }
+        }
+
+        console.log(util.format.apply(this, log))
 
         return { type: 'null', value: 'null' } as NullValue 
     }
 
     env.declareVar('println', { type: 'stdfun', call: println } as NativeFunValue, true)
-    
+
     return env
 }
 

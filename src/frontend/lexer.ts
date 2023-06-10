@@ -25,6 +25,7 @@ export enum TokenType {
     CloseBrace, // {
     OpenBracket, // [
     CloseBracket, // ]
+    Comment,
     EOF, // End of file
 }
 
@@ -64,7 +65,14 @@ export function tokenize (sourceCode: string): Token[] {
 
     // Build each token until end of file
     while (source.length > 0) {
-        if        (source[0] == '(') {
+        if (source[0] == '/' && source[1] == '/') {
+            source.shift()
+            source.shift()
+            let comment = ''
+            while (source.length > 1 && String(source)[0] !== "\n" && String(source)[0] !== "\r") {
+                comment += source.shift()
+            }
+        } else if (source[0] == '(') {
             tokens.push(token(source.shift(), TokenType.OpenParen))
         } else if (source[0] == ')') {
             tokens.push(token(source.shift(), TokenType.CloseParen))

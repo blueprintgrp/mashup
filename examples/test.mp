@@ -1,5 +1,22 @@
-fun welcome (string) {
-    string
+fun info(message) {
+    const prefix = "Info: "
+    println(prefix + message)
 }
 
-println(welcome("Hello, World!"))
+fun error(message) {
+    const prefix = "Error: "
+    println(prefix + message)
+}
+
+fun warn(message) {
+    const prefix = "Warn: "
+    println(prefix + message)
+}
+
+const logger = {
+    info,
+    error,
+    warn,
+}
+
+logger.error("Something wrong happend")

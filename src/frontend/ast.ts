@@ -7,6 +7,7 @@ export type NodeType =
     // Expressions
     | 'AssignmentExpression'
     | 'MemberExpression'
+    | 'MemberCallExpression'
     | 'CallExpression'
 
     // Literals
@@ -66,6 +67,13 @@ export interface MemberExpression extends Expression {
     object: Expression,
     property: Expression,
     computed: boolean
+}
+
+export interface MemberCallExpression extends Expression {
+    kind: 'MemberCallExpression';
+    object: Expression;
+    property: Identifier;
+    args: Expression[];
 }
 
 export interface Identifier extends Expression {

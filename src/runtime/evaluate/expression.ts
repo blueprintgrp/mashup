@@ -1,7 +1,7 @@
-import { AssignmentExpression, BinaryExpression, CallExpression, Identifier, ObjectLiteral } from "../../frontend/ast"
+import { AssignmentExpression, BinaryExpression, CallExpression, Identifier, MemberCallExpression, MemberExpression, ObjectLiteral, Property } from "../../frontend/ast"
 import Environment from "../environment"
 import { evaluate } from "../interpreter"
-import { FunctionValue, NativeFunValue, NullValue, NumberValue, ObjectValue, RuntimeValue } from "../values"
+import { FunctionValue, NativeFunValue, NullValue, NumberValue, ObjectValue, RuntimeValue, StringValue } from "../values"
 
 export function evaluateNumericBinaryExpression (leftHandSide: NumberValue, rightHandSide: NumberValue, operator: string): NumberValue {
     let result: number
@@ -15,12 +15,23 @@ export function evaluateNumericBinaryExpression (leftHandSide: NumberValue, righ
     return { value: result, type: 'number' }
 }
 
+export function evaluateStringBinaryExpression (leftHandSide: StringValue, rightHandSide: StringValue, operator: string): StringValue {
+    let result: string
+
+    if (operator == '+') result = leftHandSide.value + rightHandSide.value
+    else throw `Cannot use operator "${operator}" in string binary expression.`
+
+    return { value: result, type: 'string' }
+}
+
 export function evaluateBinaryExpression (binop: BinaryExpression, env: Environment): RuntimeValue {
     const leftHandSide = evaluate(binop.left, env)
     const rightHandSide = evaluate(binop.right, env)
 
     if (leftHandSide.type == 'number' && rightHandSide.type == 'number') {
         return evaluateNumericBinaryExpression(leftHandSide as NumberValue, rightHandSide as NumberValue, binop.operator)
+    } else if (leftHandSide.type == 'string' && rightHandSide.type == 'string') {
+        return evaluateStringBinaryExpression(leftHandSide as StringValue, rightHandSide as StringValue, binop.operator)
     }
 
     // One or both are NULL
@@ -84,4 +95,22 @@ export function evaluateCallExpression(expression: CallExpression, env: Environm
     }
 
     throw 'Cannot call value that is not a function: ' + JSON.stringify(fun)
+}
+
+export function evaluateMemberExpression(expression: MemberExpression, env: Environment): RuntimeValue {
+    const object = evaluate(expression.object, env)
+    const property = (expression.property as Identifier).symbol
+  
+    if (object.type === 'object') {
+        const objValue = object as ObjectValue
+        const propertyValue = objValue.properties.get(property)
+        
+        if (propertyValue !== undefined) {
+            return propertyValue
+        } else {
+            throw `Property "${property}" does not exist on object.`
+      }
+    } else {
+        throw 'Cannot access property on non-object value.'
+    }
 }

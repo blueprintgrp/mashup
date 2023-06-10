@@ -23,7 +23,8 @@ async function file() {
 }
 
 async function repl () {
-    console.log(`Mashup ${version} on ts-node`)
+    const date = new Date(Date.now())
+    console.log(`Mashup ${version} (${date.toDateString()}) on ts-node`)
     console.log(`Type "exit" to exit.`)
     while (true) {
         const source = await prompt()
@@ -39,6 +40,6 @@ async function repl () {
         const program = parser.produceAST(source)
         
         const result = evaluate(program, env)
-        // console.log(result)
+        //console.log(result)
     }
 }
