@@ -1,14 +1,6 @@
-import * as readline from 'readline'
+import * as readline from 'readline-sync'
 
-const rl = readline.createInterface({
-    input: process.stdin,
-    output: process.stdout
-})
-
-export default function (prefix = '>'): Promise<string> {
-    return new Promise((resolve) => {
-      rl.question(`${prefix} `, (input: string) => {
-        resolve(input)
-      })
-    })
-  }
+export default function (prefix = '>'): string {
+    const result = readline.question(`${prefix} `)
+    return result
+}

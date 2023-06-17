@@ -1,10 +1,13 @@
 {
   "name": "mashup",
-  "version": "0.3.3",
+  "version": "0.4.1",
+  "state": "dev",
   "description": "",
   "main": "src/index.ts",
+  "bin": "build/js/src/index.js",
   "scripts": {
-    "start": "ts-node ."
+    "dev": "ts-node .",
+    "build": "tsc && pkg ."
   },
   "repository": {
     "type": "git",
@@ -18,10 +21,25 @@
   "homepage": "https://github.com/johainworks/mashup#readme",
   "dependencies": {
     "@types/node": "^20.2.5",
+    "readline-sync": "^1.4.10",
     "typescript": "^5.1.3"
   },
   "devDependencies": {
     "nodemon": "^2.0.22",
+    "pkg": "^5.8.1",
     "ts-node": "^10.9.1"
+  },
+  "pkg": {
+    "scripts": "build/js/**/.js",
+    "outputPath": "build/nw",
+    "targets": [
+      "node18-linux-x64",
+      "node18-macos-x64",
+      "node18-win-x64"
+    ]
+  },
+  "engines": {
+    "node": ">=18.16.0",
+    "npm": ">=9.6.7"
   }
 }
