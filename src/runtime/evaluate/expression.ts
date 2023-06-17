@@ -1,7 +1,8 @@
-import { AssignmentExpression, BinaryExpression, CallExpression, Identifier, MemberCallExpression, MemberExpression, ObjectLiteral, Property } from "../../frontend/ast"
+import { AssignmentExpression, BinaryExpression, CallExpression, EqualityExpression, Expression, Identifier, MemberCallExpression, MemberExpression, ObjectLiteral, Property } from "../../frontend/ast"
+import { TokenType } from "../../frontend/lexer"
 import Environment from "../environment"
 import { evaluate } from "../interpreter"
-import { FunctionValue, NativeFunValue, NullValue, NumberValue, ObjectValue, RuntimeValue, StringValue } from "../values"
+import { BooleanValue, FunctionValue, NativeFunValue, NullValue, NumberValue, ObjectValue, RuntimeValue, StringValue } from "../values"
 
 export function evaluateNumericBinaryExpression (leftHandSide: NumberValue, rightHandSide: NumberValue, operator: string): NumberValue {
     let result: number
@@ -112,5 +113,29 @@ export function evaluateMemberExpression(expression: MemberExpression, env: Envi
       }
     } else {
         throw 'Cannot access property on non-object value.'
+    }
+}
+
+export function evaluateEqualityExpression(expression: EqualityExpression, env: Environment): RuntimeValue {
+    const left = evaluate(expression.left, env)
+    const right = evaluate(expression.right, env)
+    const operator = expression.operator
+
+    if (isTruthy(left, operator, right)) {
+
+        return { type: 'boolean', value: true } as RuntimeValue
+    } else {
+        return { type: 'boolean', value: false } as RuntimeValue
+    }
+}
+
+function isTruthy(left: RuntimeValue, operator: TokenType, right: RuntimeValue): boolean {
+    switch (operator) {
+        case TokenType.DoubleEquals:
+            if ((left as BooleanValue).value == (right as BooleanValue).value) return true
+            else return false
+        case TokenType.NotEqual:
+            if ((left as BooleanValue).value != (right as BooleanValue).value) return true
+            else return false
     }
 }

@@ -1,14 +1,18 @@
+import { TokenType } from "./lexer"
+
 export type NodeType = 
     // Statements    
     | 'Program' 
     | 'VariableDeclaration'
     | 'FunctionDeclaration'
+    | 'IfStatement'
 
     // Expressions
     | 'AssignmentExpression'
     | 'MemberExpression'
     | 'MemberCallExpression'
     | 'CallExpression'
+    | 'EqualityExpression'
 
     // Literals
     | 'Property'
@@ -39,6 +43,14 @@ export interface FunctionDeclaration extends Statement {
     parameters: string[]
     name: string
     body: Statement[]
+}
+
+export interface IfStatement extends Statement {
+    kind: 'IfStatement'
+    conditional: Expression
+    operator: TokenType
+    consequent: Statement[]
+    alternate?: Statement[]
 }
 
 export interface Expression extends Statement {}
@@ -74,6 +86,13 @@ export interface MemberCallExpression extends Expression {
     object: Expression;
     property: Identifier;
     args: Expression[];
+}
+
+export interface EqualityExpression extends Expression {
+    kind: 'EqualityExpression'
+    left: Expression
+    right: Expression
+    operator: TokenType
 }
 
 export interface Identifier extends Expression {

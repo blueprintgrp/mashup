@@ -1,8 +1,8 @@
 import { RuntimeValue, NumberValue, StringValue } from './values'
-import { Program, Statement, BinaryExpression, NumericLiteral, Identifier, VariableDeclaration, AssignmentExpression, ObjectLiteral, CallExpression, FunctionDeclaration, StringLiteral, MemberExpression } from '../frontend/ast'
+import { Program, Statement, BinaryExpression, NumericLiteral, Identifier, VariableDeclaration, AssignmentExpression, ObjectLiteral, CallExpression, FunctionDeclaration, StringLiteral, MemberExpression, IfStatement, EqualityExpression } from '../frontend/ast'
 import Environment from './environment'
-import { evaluateIdentifier, evaluateBinaryExpression, evaluateAssignment, evaluateObjectExpression, evaluateCallExpression, evaluateMemberExpression } from './evaluate/expression'
-import { evaluateFunctionDeclaration, evaluateProgram, evaluateVariableDeclaration } from './evaluate/statement'
+import { evaluateIdentifier, evaluateBinaryExpression, evaluateAssignment, evaluateObjectExpression, evaluateCallExpression, evaluateMemberExpression, evaluateEqualityExpression } from './evaluate/expression'
+import { evaluateFunctionDeclaration, evaluateIfStatement, evaluateProgram, evaluateVariableDeclaration } from './evaluate/statement'
 
 export function evaluate (astNode: Statement, env: Environment): RuntimeValue {
     switch (astNode.kind) {
@@ -36,6 +36,9 @@ export function evaluate (astNode: Statement, env: Environment): RuntimeValue {
         case 'BinaryExpression':
             return evaluateBinaryExpression(astNode as BinaryExpression, env)
         
+        case 'EqualityExpression':
+            return evaluateEqualityExpression(astNode as EqualityExpression, env)
+
         case 'Program':
             return evaluateProgram(astNode as Program, env)
         
@@ -44,6 +47,9 @@ export function evaluate (astNode: Statement, env: Environment): RuntimeValue {
             
         case 'FunctionDeclaration':
             return evaluateFunctionDeclaration(astNode as FunctionDeclaration, env)
+        
+        case 'IfStatement':
+            return evaluateIfStatement(astNode as IfStatement, env)
 
         default:
             console.error("This AST Node has not yet been setup for interpretation.", astNode)

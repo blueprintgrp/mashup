@@ -2,6 +2,7 @@ import * as util from 'node:util'
 import * as read from 'node:readline'
 
 import { BooleanValue, NativeFunValue, NullValue, NumberValue, ObjectValue, RuntimeValue, StringValue } from "./values"
+import prompt from '../utils/prompt'
 
 export function createGlobalEnvironment () {
     const env = new Environment()

@@ -10,10 +10,14 @@ export enum TokenType {
     Let,
     Const,
     Fun,
+    If,
+    Else,
 
     // Grouping * Operators
     BinaryOperator, // +, -, *, /, %
     Equals, // =
+    DoubleEquals, // ==
+    NotEqual, // !=
     Comma, // ,
     Dot, // .
     Colon, // :
@@ -32,7 +36,9 @@ export enum TokenType {
 const KEYWORDS: Record<string, TokenType> = {
     'let': TokenType.Let,
     'const': TokenType.Const,
-    'fun': TokenType.Fun
+    'fun': TokenType.Fun,
+    'if': TokenType.If,
+    'else': TokenType.Else,
 }
 
 export interface Token {
@@ -87,7 +93,19 @@ export function tokenize (sourceCode: string): Token[] {
         } else if (['+', '-', '*', '/', '%'].includes(source[0])) {
             tokens.push(token(source.shift(), TokenType.BinaryOperator))
         } else if (source[0] == '=') {
-            tokens.push(token(source.shift(), TokenType.Equals))
+            if (source[1] == '=') {
+                source.shift()
+                source.shift()
+                tokens.push(token('==', TokenType.DoubleEquals))
+            } else {
+                tokens.push(token(source.shift(), TokenType.Equals))
+            }
+        } else if (source[0] == '!') {
+            if (source[1] == '=') {
+                source.shift()
+                source.shift()
+                tokens.push(token('!=', TokenType.NotEqual))
+            }
         } else if (source[0] == ';') {
             tokens.push(token(source.shift(), TokenType.Semicolon))
         } else if (source[0] == ':') {

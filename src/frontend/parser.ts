@@ -13,6 +13,8 @@ import {
     VariableDeclaration, 
     FunctionDeclaration,
     StringLiteral,
+    IfStatement,
+    EqualityExpression,
 } from "./ast"
 
 import { tokenize, Token, TokenType } from "./lexer"
@@ -68,11 +70,61 @@ export default class Parser {
             
             case TokenType.Fun:
                 return this.parseFunctionDeclaration()
+
+            case TokenType.If:
+                return this.parseIfStatement()
             
             default:
                 return this.parseExpression()
         }
-    }     
+    }
+    
+    private parseIfStatement(): IfStatement {
+        this.expect(TokenType.If, 'Expected "if" keyword.')
+        const conditional = this.parseExpression()
+        const consequent: Statement[] = []
+        let right: Expression
+        let operator: TokenType
+
+        this.expect(TokenType.OpenBrace, 'Expected opening brace for consequent block.')
+
+        while (this.at().type !== TokenType.EOF && this.at().type !== TokenType.CloseBrace) {
+            consequent.push(this.parseStatement())
+        }
+      
+        this.expect(TokenType.CloseBrace, 'Expected closing brace for consequent block.')
+      
+        let alternate: Statement[] | undefined = undefined
+      
+        if (this.at().type === TokenType.Else) {
+          this.eat() // Skip "else" keyword
+      
+          if (this.at().type === TokenType.If) {
+            // Handle "else if" case
+            alternate = [this.parseIfStatement()]
+          } else {
+            // Handle "else" case
+            alternate = []
+      
+            this.expect(TokenType.OpenBrace, 'Expected opening brace for alternate block.')
+      
+            while (this.at().type !== TokenType.EOF && this.at().type !== TokenType.CloseBrace) {
+              alternate.push(this.parseStatement())
+            }
+      
+            this.expect(TokenType.CloseBrace, 'Expected closing brace for alternate block.')
+          }
+        }
+      
+        return {
+          kind: 'IfStatement',
+          conditional,
+          operator,
+          right,
+          consequent,
+          alternate,
+        } as IfStatement
+      }
     
     private parseFunctionDeclaration(): Statement {
         this.eat()
@@ -310,12 +362,24 @@ export default class Parser {
 
             case TokenType.OpenParen: {
                 this.eat() // eat the opening paren
-                const value = this.parseExpression()
+                const left = this.parseExpression()
+                let operator: TokenType
+                let right: Expression
+                let value: Expression
+
+                if (this.at().type == TokenType.DoubleEquals || this.at().type == TokenType.NotEqual) {
+                    operator = this.eat().type
+                    right = this.parseExpression()
+                    value = { kind: 'EqualityExpression', left, operator, right } as EqualityExpression
+                } else {
+                    value = left
+                }
+
                 this.expect(
                     TokenType.CloseParen,
                     'Unexpected token found inside parenthesised expression. Excpected closing parenthesis'
                 ) // eat the closing paren
-                
+
                 return value
             }
 
