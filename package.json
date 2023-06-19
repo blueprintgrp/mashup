@@ -1,15 +1,15 @@
 {
   "name": "mashup-lang",
-  "version": "0.4.3",
+  "version": "0.4.3.1",
   "state": "stable",
   "description": "Interpreted scripting language.",
-  "main": "./src/index.ts",
+  "main": "src/index.ts",
   "bin": {
-    "mashup": "./src/index.js"
+    "mashup": "./lib/src/index.js"
   },
   "scripts": {
     "dev": "ts-node .",
-    "build": "tsc && pkg .",
+    "build": "tsc",
     "push": "git push && npm publish"
   },
   "repository": {
@@ -29,14 +29,6 @@
   },
   "devDependencies": {
     "ts-node": "^10.9.1"
-  },
-  "pkg": {
-    "scripts": "build/lib/**/.js",
-    "outputPath": "build/bin",
-    "targets": [
-      "node18-linux-x64",
-      "node18-win-x64"
-    ]
   },
   "engines": {
     "node": ">=18.16.0",
