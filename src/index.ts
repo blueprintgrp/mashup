@@ -33,7 +33,7 @@ async function file() {
 async function repl () {
     console.log()
     const date = new Date(Date.now())
-    console.log(`Mashup ${version} (${date.toDateString()}) on ${state}`)
+    console.log(`Nitro ${version} (${date.toDateString()}) on ${state}`)
     console.log(`Type "exit" to exit.`)
     while (true) {
         const source = await prompt()
