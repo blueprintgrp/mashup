@@ -1,6 +1,6 @@
 {
   "name": "nitrolang",
-  "version": "0.4.6",
+  "version": "0.4.7",
   "state": "stable",
   "description": "Interpreted scripting language.",
   "main": "src/index.ts",
@@ -10,7 +10,7 @@
   "scripts": {
     "dev": "ts-node .",
     "build": "tsc",
-    "push": "tsc && git push && npm publish"
+    "push": "tsc && git commit -a -m \"Commit before npm publish\" && git push && npm publish"
   },
   "repository": {
     "type": "git",
@@ -35,7 +35,7 @@
     "npm": ">=9.6.7"
   },
   "files": [
-    "lib/",
-    "examples/"
+    "lib",
+    "examples"
   ]
 }
