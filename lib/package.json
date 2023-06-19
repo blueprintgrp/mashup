@@ -1,0 +1,41 @@
+{
+    "name": "mashuplang",
+    "version": "0.4.2",
+    "state": "stable",
+    "description": "Interpreted scripting language.",
+    "main": "src/index.ts",
+    "bin": {
+        "mashup": "./lib/src/index.js"
+    },
+    "scripts": {
+        "dev": "ts-node .",
+        "build": "tsc",
+        "push": "tsc && git push && npm publish"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/blueprintgrp/mashup.git"
+    },
+    "author": "blueprintgrp",
+    "license": "GPL-3.0",
+    "bugs": {
+        "url": "https://github.com/blueprintgrp/mashup/issues"
+    },
+    "homepage": "https://github.com/blueprintgrp/mashup#readme",
+    "dependencies": {
+        "@types/node": "^20.2.5",
+        "readline-sync": "^1.4.10",
+        "typescript": "^5.1.3"
+    },
+    "devDependencies": {
+        "ts-node": "^10.9.1"
+    },
+    "engines": {
+        "node": ">=18.16.0",
+        "npm": ">=9.6.7"
+    },
+    "directories": {
+        "example": "examples",
+        "lib": "lib"
+    }
+}
