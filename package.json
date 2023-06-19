@@ -1,6 +1,6 @@
 {
   "name": "nitrolang",
-  "version": "0.4.5",
+  "version": "0.4.6",
   "state": "stable",
   "description": "Interpreted scripting language.",
   "main": "src/index.ts",
@@ -34,8 +34,8 @@
     "node": ">=18.16.0",
     "npm": ">=9.6.7"
   },
-  "directories": {
-    "example": "examples",
-    "lib": "lib"
-  }
+  "files": [
+    "lib/",
+    "examples/"
+  ]
 }
