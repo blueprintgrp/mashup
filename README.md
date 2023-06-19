@@ -4,7 +4,7 @@
     <img src="https://i.ibb.co/k0tqP1w/Nitrolang.png" alt="Logo" width="128" height="128">
   </a>
 
-  <h1 align="center">Menju</h1>
+  <h1 align="center">Nitrolang</h1>
 
   <p align="center">
     Interpreted scripting language
