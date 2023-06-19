@@ -1,6 +1,6 @@
 {
   "name": "mashuplang",
-  "version": "0.4.3",
+  "version": "0.4.4",
   "state": "stable",
   "description": "Interpreted scripting language.",
   "main": "src/index.ts",

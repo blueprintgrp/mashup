@@ -48,7 +48,7 @@ export function createGlobalEnvironment () {
             console.log(`Process exited with exit code: 0`)
             process.exit(0)
         } else {
-            console.log(`Process exited with exit code: 0`)
+            console.log(`Process exited with exit code: 1`)
             process.exit(1)
         }
 
