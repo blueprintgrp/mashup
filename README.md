@@ -16,7 +16,8 @@
   </p>
 </p>
 
-![Downloads](https://img.shields.io/github/downloads/blueprintgrp/nitrolang/total) ![Contributors](https://img.shields.io/github/contributors/blueprintgrp/nitrolang?color=dark-green) ![Forks](https://img.shields.io/github/forks/blueprintgrp/nitrolang?style=social) ![Stargazers](https://img.shields.io/github/stars/blueprintgrp/nitrolang?style=social) ![Issues](https://img.shields.io/github/issues/blueprintgrp/nitrolang) ![License](https://img.shields.io/github/license/blueprintgrp/nitrolang) 
+![Downloads](https://img.shields.io/github/downloads/blueprintgrp/nitrolang/total) ![Contributors](https://img.shields.io/github/contributors/blueprintgrp/nitrolang?color=dark-green) ![Forks](https://img.shields.io/github/forks/blueprintgrp/nitrolang?style=social) ![Stargazers](https://img.shields.io/github/stars/blueprintgrp/nitrolang?style=social) ![Issues](https://img.shields.io/github/issues/blueprintgrp/nitrolang) ![License](https://img.shields.io/github/license/blueprintgrp/nitrolang)
+
 
 ## Quick Start
 
