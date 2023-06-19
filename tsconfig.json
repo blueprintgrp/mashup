@@ -1,6 +1,7 @@
 {
     "compilerOptions": {
         "resolveJsonModule": true,
-        "outDir": "build/js"
+        "allowJs": true,
+        "outDir": "build/lib"
     },
 }
