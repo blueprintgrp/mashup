@@ -1,15 +1,16 @@
 {
   "name": "mashup-lang",
-  "version": "0.4.2",
+  "version": "0.4.3",
   "state": "stable",
   "description": "Interpreted scripting language.",
-  "main": "src/index.ts",
+  "main": "./src/index.ts",
   "bin": {
-    "mashup": "src/index.js"
+    "mashup": "./src/index.js"
   },
   "scripts": {
     "dev": "ts-node .",
-    "build": "tsc && pkg ."
+    "build": "tsc && pkg .",
+    "push": "git push && npm publish"
   },
   "repository": {
     "type": "git",
