@@ -40,7 +40,20 @@ export function createGlobalEnvironment () {
         return { type: 'null', value: 'null' } as NullValue 
     }
 
+    function terminate(args: RuntimeValue[], scope: Environment) {
+        if (args[0] == undefined || args[0].type != 'number') {
+            console.log(`Process exited with exit code: 1`)
+            process.exit(1)
+        } else {
+            console.log(`Process exited with exit code: 0`)
+            process.exit(0)
+        }
+
+        return { type: 'null', value: 'null' } as NullValue
+    }
+
     env.declareVar('println', { type: 'stdfun', call: println } as NativeFunValue, true)
+    env.declareVar('terminate', { type: 'stdfun', call: terminate } as NativeFunValue, true)
 
     return env
 }
