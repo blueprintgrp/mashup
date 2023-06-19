@@ -21,12 +21,19 @@
 
 ## Quick Start
 
-`Installation`
+### Installation
+
+`npm`
 ```bash
 npm install -g nitrolang
 ```
 
-`Usage`
+`manual`
+```
+Download the standalone.zip file from github releases.
+```
+
+### Usage
 ```bash
 nitro # Launches the repl interpreter.
 nitro {file_path} # Interprets the nitro program.
