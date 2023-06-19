@@ -53,6 +53,6 @@ export function evaluate (astNode: Statement, env: Environment): RuntimeValue {
 
         default:
             console.error("This AST Node has not yet been setup for interpretation.", astNode)
-            process.exit(0)
+            process.exit(1)
     }
 }

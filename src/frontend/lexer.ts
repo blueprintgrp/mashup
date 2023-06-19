@@ -155,7 +155,7 @@ export function tokenize (sourceCode: string): Token[] {
                 source.shift() // Skip current character
             } else {
                 console.log('Unrecognized character found in source: ', source[0])
-                process.exit(0)
+                process.exit(1)
             }
         }
     }

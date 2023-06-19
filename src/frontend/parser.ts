@@ -39,7 +39,7 @@ export default class Parser {
         const prev = this.tokens.shift() as Token
         if (!prev || prev.type != type) {
             console.error('Parser Error:\n', error, prev, 'Expecting: ', type)
-            process.exit(0)
+            process.exit(1)
         }
 
         return prev
@@ -135,7 +135,8 @@ export default class Parser {
         for (const arg of args) {
             if (arg.kind !== 'Identifier') {
                 console.log(arg)
-                throw 'Expected parameters to be of type string inside function declaration.'
+                console.log('Expected parameters to be of type string inside function declaration.')
+                process.exit(1)
             }
 
             params.push((arg as Identifier).symbol)
@@ -171,7 +172,8 @@ export default class Parser {
             this.eat()
 
             if (isConstant) 
-                throw 'Must assign value to constant expression. No value provided.'
+                console.log('Must assign value to constant expression. No value provided.')
+                process.exit(1)
             
             return { kind: 'VariableDeclaration', identifier, constant: false } as VariableDeclaration
         }
@@ -332,7 +334,8 @@ export default class Parser {
                 property = this.parsePrimaryExpression()
 
                 if (property.kind != 'Identifier') {
-                    throw `Cannot use dot operator without right hand side being an identifier.`
+                    console.log(`Cannot use dot operator without right hand side being an identifier.`)
+                    process.exit(1)
                 }
             } else {
                 computed = true
@@ -385,7 +388,7 @@ export default class Parser {
 
             default:
                 console.error('Unexpected token found during parsing: ', this.at())
-                process.exit(0)
+                process.exit(1)
         }
     }
 }

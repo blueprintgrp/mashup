@@ -76,7 +76,8 @@ export default class Environment {
 
     public declareVar (varname: string, value: RuntimeValue, constant: boolean): RuntimeValue {
         if (this.variables.has(varname)) {
-            throw `Cannot declare variable ${varname}. As it already is defined.`
+            console.log(`Cannot declare variable ${varname}. As it already is defined.`)
+            process.exit(1)
         }
 
         this.variables.set(varname, value)
@@ -92,7 +93,8 @@ export default class Environment {
         const env = this.resolve(varname)
         
         if (env.constants.has(varname)) {
-            throw `Cannot reasign to variable ${varname} as it's declared as a constant.`
+            console.log(`Cannot reasign to variable ${varname} as it's declared as a constant.`)
+            process.exit(1)
         }
 
         env.variables.set(varname, value)
@@ -111,7 +113,8 @@ export default class Environment {
             return this
         
         if (this.parent == undefined)
-            throw `Cannot resolve ${varname} as it does not exist.`
+            console.log(`Cannot resolve ${varname} as it does not exist.`)
+            process.exit(1)
 
         return this.parent.resolve(varname)  
     }

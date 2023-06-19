@@ -20,7 +20,10 @@ export function evaluateStringBinaryExpression (leftHandSide: StringValue, right
     let result: string
 
     if (operator == '+') result = leftHandSide.value + rightHandSide.value
-    else throw `Cannot use operator "${operator}" in string binary expression.`
+    else {
+        console.log(`Cannot use operator "${operator}" in string binary expression.`)
+        process.exit(1)
+    }
 
     return { value: result, type: 'string' }
 }
@@ -45,8 +48,10 @@ export function evaluateIdentifier (ident: Identifier, env: Environment): Runtim
 }
 
 export function evaluateAssignment(node: AssignmentExpression, env: Environment): RuntimeValue {
-    if (node.assigne.kind !== 'Identifier')
-        throw `Invalid left hand side in assignment expression ${JSON.stringify(node.assigne)}.`
+    if (node.assigne.kind !== 'Identifier') {
+        console.log(`Invalid left hand side in assignment expression ${JSON.stringify(node.assigne)}.`)
+        process.exit(1)
+    }
 
     const varname = ((node.assigne) as Identifier).symbol
 
@@ -95,7 +100,8 @@ export function evaluateCallExpression(expression: CallExpression, env: Environm
         return result
     }
 
-    throw 'Cannot call value that is not a function: ' + JSON.stringify(fun)
+    console.log('Cannot call value that is not a function: ' + JSON.stringify(fun))
+    process.exit(1)
 }
 
 export function evaluateMemberExpression(expression: MemberExpression, env: Environment): RuntimeValue {
@@ -109,10 +115,12 @@ export function evaluateMemberExpression(expression: MemberExpression, env: Envi
         if (propertyValue !== undefined) {
             return propertyValue
         } else {
-            throw `Property "${property}" does not exist on object.`
+            console.log(`Property "${property}" does not exist on object.`)
+            process.exit(1)
       }
     } else {
-        throw 'Cannot access property on non-object value.'
+        console.log('Cannot access property on non-object value.')
+        process.exit(1)
     }
 }
 
