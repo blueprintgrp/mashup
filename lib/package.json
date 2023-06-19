@@ -14,14 +14,14 @@
     },
     "repository": {
         "type": "git",
-        "url": "git+https://github.com/blueprintgrp/nitro.git"
+        "url": "git+https://github.com/blueprintgrp/nitrolang.git"
     },
     "author": "blueprintgrp",
     "license": "GPL-3.0",
     "bugs": {
-        "url": "https://github.com/blueprintgrp/nitro/issues"
+        "url": "https://github.com/blueprintgrp/nitrolang/issues"
     },
-    "homepage": "https://github.com/blueprintgrp/nitro#readme",
+    "homepage": "https://github.com/blueprintgrp/nitrolang#readme",
     "dependencies": {
         "@types/node": "^20.2.5",
         "readline-sync": "^1.4.10",

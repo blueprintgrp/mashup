@@ -3,7 +3,7 @@
 
 Interpreted scripting language.
 
-![Downloads](https://img.shields.io/github/downloads/blueprintgrp/nitro/total) ![Contributors](https://img.shields.io/github/contributors/blueprintgrp/nitro?color=dark-green) ![Forks](https://img.shields.io/github/forks/blueprintgrp/nitro?style=social) ![Stargazers](https://img.shields.io/github/stars/blueprintgrp/nitro?style=social) ![Issues](https://img.shields.io/github/issues/blueprintgrp/nitro) ![License](https://img.shields.io/github/license/blueprintgrp/nitro) 
+![Downloads](https://img.shields.io/github/downloads/blueprintgrp/nitrolang/total) ![Contributors](https://img.shields.io/github/contributors/blueprintgrp/nitrolang?color=dark-green) ![Forks](https://img.shields.io/github/forks/blueprintgrp/nitrolang?style=social) ![Stargazers](https://img.shields.io/github/stars/blueprintgrp/nitrolang?style=social) ![Issues](https://img.shields.io/github/issues/blueprintgrp/nitrolang) ![License](https://img.shields.io/github/license/blueprintgrp/nitrolang) 
 
 ## Quick Start
 
@@ -20,7 +20,7 @@ nitro {file_path} # Interprets the nitro program.
 
 ## Documentation
 
-Read the [Documentation](https://github.com/blueprintgrp/nitro/wiki) here.
+Read the [Documentation](https://github.com/blueprintgrp/nitrolang/wiki) here.
 
 ## Contributing
 
@@ -29,7 +29,7 @@ Read the [Documentation](https://github.com/blueprintgrp/nitro/wiki) here.
 You can clone the nitro repository like underneath. To contribute you could create a pull request or fork the repository.
 
 ```bash
-git clone https://github.com/blueprintgrp/nitro.git 
+git clone https://github.com/blueprintgrp/nitrolang.git 
 cd nitro
 npm install --save-dev
 ```
