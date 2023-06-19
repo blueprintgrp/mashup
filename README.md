@@ -1,7 +1,20 @@
+<br/>
+<p align="center">
+  <a href="https://github.com/blueprintgrp/nitrolang">
+    <img src="https://i.ibb.co/k0tqP1w/Nitrolang.png" alt="Logo" width="128" height="128">
+  </a>
 
-# Nitro
+  <h1 align="center">Menju</h1>
 
-Interpreted scripting language.
+  <p align="center">
+    Interpreted scripting language
+    <br/>
+    <br/>
+    <a href="https://github.com/blueprintgrp/nitrolang/issues">Report Bug</a>
+    .
+    <a href="https://github.com/blueprintgrp/nitrolang/issues">Request Feature</a>
+  </p>
+</p>
 
 ![Downloads](https://img.shields.io/github/downloads/blueprintgrp/nitrolang/total) ![Contributors](https://img.shields.io/github/contributors/blueprintgrp/nitrolang?color=dark-green) ![Forks](https://img.shields.io/github/forks/blueprintgrp/nitrolang?style=social) ![Stargazers](https://img.shields.io/github/stars/blueprintgrp/nitrolang?style=social) ![Issues](https://img.shields.io/github/issues/blueprintgrp/nitrolang) ![License](https://img.shields.io/github/license/blueprintgrp/nitrolang) 
 
