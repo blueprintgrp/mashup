@@ -44,9 +44,12 @@ export function createGlobalEnvironment () {
         if (args[0] == undefined || args[0].type != 'number') {
             console.log(`Process exited with exit code: 1`)
             process.exit(1)
-        } else {
+        } else if ((args[0] as NumberValue).value == 0) {
             console.log(`Process exited with exit code: 0`)
             process.exit(0)
+        } else {
+            console.log(`Process exited with exit code: 0`)
+            process.exit(1)
         }
 
         return { type: 'null', value: 'null' } as NullValue
