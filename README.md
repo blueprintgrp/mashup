@@ -9,7 +9,7 @@
   <p align="center">
     Interpreted scripting language
     <br/>
-    Development Branch
+    Master branch
     <br/>
     <a href="https://github.com/blueprintgrp/nitrolang/issues">Report Bug</a>
     -
