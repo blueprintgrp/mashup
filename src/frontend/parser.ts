@@ -168,13 +168,17 @@ export default class Parser {
             'Expected identifier name following let | const keywords.'
         ).value
 
-        if (this.at().type == TokenType.Semicolon) { // TODO: Remove semicolons
+        /*if (this.at().type == TokenType.Semicolon) { // TODO: Remove semicolons
             this.eat()
 
             if (isConstant) 
                 console.log('Must assign value to constant expression. No value provided.')
                 process.exit(1)
             
+            return { kind: 'VariableDeclaration', identifier, constant: false } as VariableDeclaration
+        }*/
+
+        if (!(this.at().type == TokenType.Equals)) {
             return { kind: 'VariableDeclaration', identifier, constant: false } as VariableDeclaration
         }
 

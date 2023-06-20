@@ -21,7 +21,6 @@ export enum TokenType {
     Comma, // ,
     Dot, // .
     Colon, // :
-    Semicolon, // ;
     Quote, // "
     OpenParen, // (
     CloseParen, // )
@@ -106,8 +105,6 @@ export function tokenize (sourceCode: string): Token[] {
                 source.shift()
                 tokens.push(token('!=', TokenType.NotEqual))
             }
-        } else if (source[0] == ';') {
-            tokens.push(token(source.shift(), TokenType.Semicolon))
         } else if (source[0] == ':') {
             tokens.push(token(source.shift(), TokenType.Colon))
         } else if (source[0] == ',') {
