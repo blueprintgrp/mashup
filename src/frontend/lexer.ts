@@ -8,7 +8,6 @@ export enum TokenType {
 
     // Keywords
     Let,
-    Const,
     Fun,
     If,
     Else,
@@ -21,7 +20,6 @@ export enum TokenType {
     Comma, // ,
     Dot, // .
     Colon, // :
-    Semicolon, // ;
     Quote, // "
     OpenParen, // (
     CloseParen, // )
@@ -35,7 +33,6 @@ export enum TokenType {
 
 const KEYWORDS: Record<string, TokenType> = {
     'let': TokenType.Let,
-    'const': TokenType.Const,
     'fun': TokenType.Fun,
     'if': TokenType.If,
     'else': TokenType.Else,
@@ -106,8 +103,6 @@ export function tokenize (sourceCode: string): Token[] {
                 source.shift()
                 tokens.push(token('!=', TokenType.NotEqual))
             }
-        } else if (source[0] == ';') {
-            tokens.push(token(source.shift(), TokenType.Semicolon))
         } else if (source[0] == ':') {
             tokens.push(token(source.shift(), TokenType.Colon))
         } else if (source[0] == ',') {

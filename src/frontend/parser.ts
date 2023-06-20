@@ -65,7 +65,6 @@ export default class Parser {
         // skip to parseExpression
         switch (this.at().type) {
             case TokenType.Let:
-            case TokenType.Const:
                 return this.parseVariableDeclaration()
             
             case TokenType.Fun:
@@ -162,19 +161,13 @@ export default class Parser {
     }
     
     private parseVariableDeclaration(): Statement {
-        const isConstant = this.eat().type == TokenType.Const
+        this.eat()
         const identifier = this.expect(
             TokenType.Identifier, 
             'Expected identifier name following let | const keywords.'
         ).value
 
-        if (this.at().type == TokenType.Semicolon) { // TODO: Remove semicolons
-            this.eat()
-
-            if (isConstant) 
-                console.log('Must assign value to constant expression. No value provided.')
-                process.exit(1)
-            
+        if (!(this.at().type == TokenType.Equals)) {
             return { kind: 'VariableDeclaration', identifier, constant: false } as VariableDeclaration
         }
 
@@ -184,10 +177,8 @@ export default class Parser {
             kind: 'VariableDeclaration',
             value: this.parseExpression(),
             identifier,
-            constant: isConstant
+            constant: false
         } as VariableDeclaration
-
-        // this.expect(TokenType.Semicolon, 'Variable declaration statement must end with semicolon.')
 
         return declaration
     }
