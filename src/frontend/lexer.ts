@@ -8,7 +8,6 @@ export enum TokenType {
 
     // Keywords
     Let,
-    Const,
     Fun,
     If,
     Else,
@@ -34,7 +33,6 @@ export enum TokenType {
 
 const KEYWORDS: Record<string, TokenType> = {
     'let': TokenType.Let,
-    'const': TokenType.Const,
     'fun': TokenType.Fun,
     'if': TokenType.If,
     'else': TokenType.Else,
