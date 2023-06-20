@@ -10,7 +10,7 @@
   "scripts": {
     "dev": "tsc && node .",
     "build": "tsc",
-    "push": "tsc && git commit -a -m \"Commit before npm publish\" && git push && npm publish"
+    "push": "tsc && git commit -a -m \"Commit before npm publish\" && git push && npm publish --tag dev"
   },
   "repository": {
     "type": "git",
