@@ -67,3 +67,7 @@ npm run dev
 ```bash
 npm run build
 ```
+
+## Known issues
+
+- Functions are a bugged involving environments (scopes).

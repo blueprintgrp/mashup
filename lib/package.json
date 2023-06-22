@@ -1,7 +1,7 @@
 {
     "name": "nitrolang",
-    "version": "0.4.8",
-    "state": "dev",
+    "version": "0.4.9",
+    "state": "stable",
     "description": "Interpreted scripting language.",
     "main": "./lib/src/index.js",
     "bin": {
@@ -10,7 +10,7 @@
     "scripts": {
         "dev": "tsc && node .",
         "build": "tsc",
-        "push": "tsc && git commit -a -m \"Commit before npm publish\" && git push && npm publish --tag dev"
+        "push": "tsc && git commit -a -m \"Commit before npm publish\" && git push && npm publish"
     },
     "repository": {
         "type": "git",
@@ -24,6 +24,7 @@
     "homepage": "https://github.com/blueprintgrp/nitrolang#readme",
     "dependencies": {
         "@types/node": "^20.2.5",
+        "nitrolang": "^0.4.8-dev",
         "readline-sync": "^1.4.10",
         "typescript": "^5.1.3"
     },
